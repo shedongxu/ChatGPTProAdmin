@@ -5,11 +5,9 @@ FROM openjdk:8-jdk-alpine
 # 设置工作目录
 WORKDIR /app
 
-COPY target/ruoyi.jar /app/ruoyi.jar
-
 EXPOSE 80
 
-CMD ["java", "-jar", "/app/ruoyi.jar"]
+CMD ["java", "-jar", "target/ruoyi.jar"]
 
 
 
