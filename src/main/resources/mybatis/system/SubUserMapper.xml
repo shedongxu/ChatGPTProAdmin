@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.subUser.mapper.SubUserMapper">
+    
+    <resultMap type="SubUser" id="SubUserResult">
+        <result property="id"    column="ID"    />
+        <result property="code"    column="CODE"    />
+        <result property="expireTime"    column="EXPIRE_TIME"    />
+        <result property="name"    column="NAME"    />
+        <result property="remark"    column="REMARK"    />
+    </resultMap>
+
+    <sql id="selectSubUserVo">
+        select ID, CODE, EXPIRE_TIME, NAME, REMARK from sub_user
+    </sql>
+
+    <select id="selectSubUserList" parameterType="SubUser" resultMap="SubUserResult">
+        <include refid="selectSubUserVo"/>
+        <where>  
+            <if test="code != null  and code != ''"> and CODE = #{code}</if>
+            <if test="params.beginExpireTime != null and params.beginExpireTime != '' and params.endExpireTime != null and params.endExpireTime != ''"> and EXPIRE_TIME between #{params.beginExpireTime} and #{params.endExpireTime}</if>
+            <if test="name != null  and name != ''"> and NAME like concat('%', #{name}, '%')</if>
+            <if test="remark != null  and remark != ''"> and REMARK like concat('%', #{remark}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectSubUserById" parameterType="Long" resultMap="SubUserResult">
+        <include refid="selectSubUserVo"/>
+        where ID = #{id}
+    </select>
+        
+    <insert id="insertSubUser" parameterType="SubUser" useGeneratedKeys="true" keyProperty="id">
+        insert into sub_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">CODE,</if>
+            <if test="expireTime != null">EXPIRE_TIME,</if>
+            <if test="name != null">NAME,</if>
+            <if test="remark != null">REMARK,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null">#{code},</if>
+            <if test="expireTime != null">#{expireTime},</if>
+            <if test="name != null">#{name},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSubUser" parameterType="SubUser">
+        update sub_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="code != null">CODE = #{code},</if>
+            <if test="expireTime != null">EXPIRE_TIME = #{expireTime},</if>
+            <if test="name != null">NAME = #{name},</if>
+            <if test="remark != null">REMARK = #{remark},</if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteSubUserById" parameterType="Long">
+        delete from sub_user where ID = #{id}
+    </delete>
+
+    <delete id="deleteSubUserByIds" parameterType="String">
+        delete from sub_user where ID in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
