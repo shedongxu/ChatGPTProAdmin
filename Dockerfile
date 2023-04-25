@@ -15,6 +15,3 @@ EXPOSE 80
 COPY --from=build /app/target/ruoyi.jar /app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
 
-
-
-
