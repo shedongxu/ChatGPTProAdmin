@@ -50,5 +50,16 @@ public class ApiController extends BaseController
         return toAjax(chatMsgLogService.insertChatMsgLog(chatMsgLog));
     }
 
+    /**
+     * 通过授权密钥扣减订阅用户剩余对话条数
+     */
+    @GetMapping("/subUser/count/{code}")
+    @ResponseBody
+    public AjaxResult subUserCount(@PathVariable("code") String code) {
+        SubUser subUser = subUserService.selectSubUserByCode(code);
+        subUser.setMsgCount(subUser.getMsgCount() - 1);
+        subUserService.updateSubUser(subUser);
+        return AjaxResult.success(subUser);
+    }
 
 }

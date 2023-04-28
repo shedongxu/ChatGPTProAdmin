@@ -10,10 +10,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="expireTime"    column="EXPIRE_TIME"    />
         <result property="name"    column="NAME"    />
         <result property="remark"    column="REMARK"    />
+        <result property="msgCount"    column="MSG_COUNT"    />
     </resultMap>
 
     <sql id="selectSubUserVo">
-        select ID, CODE, EXPIRE_TIME, NAME, REMARK from sub_user
+        select ID, CODE, EXPIRE_TIME, NAME, REMARK, MSG_COUNT from sub_user
     </sql>
 
     <select id="selectSubUserList" parameterType="SubUser" resultMap="SubUserResult">
@@ -38,13 +39,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="expireTime != null">EXPIRE_TIME,</if>
             <if test="name != null">NAME,</if>
             <if test="remark != null">REMARK,</if>
-         </trim>
+            <if test="msgCount != null">MSG_COUNT,</if>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="code != null">#{code},</if>
             <if test="expireTime != null">#{expireTime},</if>
             <if test="name != null">#{name},</if>
             <if test="remark != null">#{remark},</if>
-         </trim>
+            <if test="msgCount != null">MSG_COUNT,</if>
+        </trim>
     </insert>
 
     <update id="updateSubUser" parameterType="SubUser">
@@ -54,6 +57,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="expireTime != null">EXPIRE_TIME = #{expireTime},</if>
             <if test="name != null">NAME = #{name},</if>
             <if test="remark != null">REMARK = #{remark},</if>
+            <if test="remark != null">REMARK = #{remark},</if>
+            <if test="msgCount != null">MSG_COUNT = #{msgCount},</if>
+
         </trim>
         where ID = #{id}
     </update>

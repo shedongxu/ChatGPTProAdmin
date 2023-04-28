@@ -30,6 +30,10 @@ public class SubUser extends BaseEntity
     @Excel(name = "账户名称")
     private String name;
 
+    /** 剩余对话条数 */
+    @Excel(name = "剩余对话条数")
+    private int msgCount;
+
     public void setId(Long id)
     {
         this.id = id;
@@ -67,6 +71,14 @@ public class SubUser extends BaseEntity
         return name;
     }
 
+    public int getMsgCount() {
+        return msgCount;
+    }
+
+    public void setMsgCount(int msgCount) {
+        this.msgCount = msgCount;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -75,6 +87,7 @@ public class SubUser extends BaseEntity
             .append("expireTime", getExpireTime())
             .append("name", getName())
             .append("remark", getRemark())
+            .append("msgCount", getMsgCount())
             .toString();
     }
 }
