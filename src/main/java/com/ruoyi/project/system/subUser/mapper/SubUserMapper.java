@@ -58,4 +58,12 @@ public interface SubUserMapper
      * @return 结果
      */
     public int deleteSubUserByIds(String[] ids);
+
+    /**
+     * 通过授权密钥查询订阅用户信息
+     *
+     * @param code 授权密钥
+     * @return 订阅用户信息
+     */
+    SubUser selectSubUserByCode(String code);
 }

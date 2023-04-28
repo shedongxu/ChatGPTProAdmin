@@ -45,6 +45,17 @@ public class SubUserServiceImpl implements ISubUserService
     }
 
     /**
+     * 通过授权密钥查询订阅用户信息
+     *
+     * @param code 授权密钥
+     * @return 订阅用户信息
+     */
+    @Override
+    public SubUser selectSubUserByCode(String code) {
+        return subUserMapper.selectSubUserByCode(code);
+    }
+
+    /**
      * 新增订阅用户管理
      * 
      * @param subUser 订阅用户管理
